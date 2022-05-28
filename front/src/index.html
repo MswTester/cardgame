@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, minimum-scale=1">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        body,html{
+            margin: 0;
+            overscroll-behavior-y: contain;
+        }
+        div.name{
+            top: 50vh;
+            left: 50vw;
+            position: absolute;
+            padding: 10px;
+            transform: translateY(-50%) translateX(-50%);
+        }
+        .hide{
+            display: none;
+        }
+        div.name>input{
+            border: 0;
+            background-color: black;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        div.name>button{
+            padding:5px;
+        }
+        div.room{
+            text-align: center;
+            margin: auto;
+        }
+        div.room > div.create{
+            margin:20px auto;
+            border: skyblue 2px solid;
+            padding: 10px;
+            border-radius: 10px;
+            user-select: none;
+            font-weight: bold;
+            cursor: pointer;
+            width: 50%;
+        }
+        div.room > div.alt{
+            margin: 10px auto;
+            border: greenyellow 2px solid;
+            padding: 10px;
+            border-radius: 10px;
+            user-select: none;
+            width: 50%;
+            vertical-align: middle;
+        }
+        div.room > div.alt > div.title{
+            text-align: center;
+            font-weight: bolder;
+            font-size: large;
+        }
+        div.room > div.alt > div.owner{
+            color: gray;
+            text-align: right;
+        }
+        div.room > div.alt > div.type{
+            color: darkblue;
+            font-weight: bold;
+        }
+        div.room > div.alt > div.human{
+            text-align: right;
+            margin-right: 20px;
+        }
+        div.room > div.alt > button.part{
+            margin-top: 10px;
+            width: 100%;
+            padding: 5px;
+        }
+        div.rcbox{
+            width: 40%;
+            height: 40%;
+            position: fixed;
+            top:50vh;
+            left: 50vw;
+            transform: translateY(-50%) translateX(-50%);
+            border: 1px gray solid;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0px 0px 5px 1px black;
+            background-color: white;
+            text-align: center;
+        }
+        div.rcbox > div {
+            position: relative;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-around;
+        }
+        div.rcbox > div > div{
+            font-size: large;
+        }
+        div.rcbox > div > input{
+            width: 40%;
+        }
+        div.rccr {
+            border-radius: 10px;
+            padding: 5px;
+            border: 1px skyblue solid;
+            color: skyblue;
+            user-select: none;
+            cursor: pointer;
+        }
+        div.rccc {
+            border-radius: 10px;
+            padding: 5px;
+            border: 1px red solid;
+            color: red;
+            user-select: none;
+            cursor: pointer;
+        }
+        div.rchat{
+            background-color: black;
+            opacity: 0.5;
+            color: white;
+            width: 100%;
+            height: calc(40vh - 30px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+        }
+        input#rchatinp{
+            width: calc(100% - 15%);
+            height: 30px;
+            padding: 5px;
+            position: fixed;
+            top: calc(40vh - 30px);
+            left: 0;
+            border: 0;
+            background-color: black;
+            color: white;
+            opacity: 0.6;
+        }
+        button.rchatsend{
+            width: 15%;
+            height: 30px;
+            top: calc(40vh - 30px);
+            left: calc(100% - 15%);
+            position: fixed;
+            border: 0;
+            background-color: lightgray;
+            user-select: none;
+            cursor: pointer;
+        }
+        .inRoom > h1{
+            margin-top: 0;
+            margin: auto;
+            position: fixed;
+            top:0;
+            left: calc(50vw);
+            transform: translateX(-50%);
+        }
+        .inRoom > div.pls{
+            position: fixed;
+            top: 0;
+            left: 80%;
+            width: calc(20% - 10px);
+        }
+        .pls > div{
+            text-align: center;
+            vertical-align: middle;
+            margin: 5px;
+            padding: 5px;
+            border: 2px solid skyblue;
+            user-select: none;
+            font-weight: bold;
+            border-radius: 10px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="name">
+        <h3>이름을 입력해서 로그인 해주세요</h3>
+        <input type="text" class="ni">
+        <button class="start">시작</button>
+    </div>
+    <div class="room hide">
+        <div class="create">방 생성</div>
+        <div class="alt">
+            <div class="title">방제목</div>
+            <div class="owner">플레이어</div>
+            <div class="human">0/8</div>
+            <div class="type">게임</div>
+            <button class="part">참가</button>
+        </div>
+    </div>
+    <div class="rcbox hide">
+        <div>
+            <div>방 제목</div>
+            <input type="text" name="" id="rctitle">
+        </div>
+        <div>
+            <div>게임</div>
+            <select name="" id="rctype">
+                <option value="stock">코인</option>
+                <option value="onecard">원카드</option>
+                <option value="poker">포커</option>
+            </select>
+        </div>
+        <div>
+            <div>인원 수</div>
+            <input type="number" name="" id="rcplayer" value="6" max="6" min="2">
+        </div>
+        <div>
+            <div>비밀번호</div>
+            <input type="checkbox" name="" id="rcpsc">
+            <input type="text" name="" id="rcps" disabled>
+        </div>
+        <div class="rccr">생성</div>
+        <div class="rccc">취소</div>
+    </div>
+    <div class="inRoom hide">
+        <div class="rhal hide">
+            <div class="rchat">
+            </div>
+            <input type="text" name="" id="rchatinp" placeholder="여기에 입력하시오.">
+            <button class="rchatsend">전송</button>
+        </div>
+        <h1>title</h1>
+        <div class="pls"></div>
+        <button class="gst">시작</button>
+    </div>
+</body>
+</html>
